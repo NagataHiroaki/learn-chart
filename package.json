@@ -1,0 +1,28 @@
+{
+  "name": "canvas-training",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nagata Hiroaki",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.24.7",
+    "cpx": "^1.5.0",
+    "npm-run-all": "^4.1.2",
+    "ts-loader": "^5.3.0",
+    "typescript": "^3.1.2",
+    "webpack": "^4.26.1",
+    "webpack-command": "^0.4.2"
+  },
+  "scripts": {
+    "server": "browser-sync start --config bs-config.js",
+    "build": "npm-run-all -s copy ts",
+    "watch": "npm-run-all -p w:copy w:ts server",
+    "start": "yarn build && yarn watch",
+    "copy": "cpx \"./src/mock/**/*.{js,gif,svg,png,jpg,eot,otf,woff,woff2,html}\" ./dist",
+    "w:copy": "cpx \"./src/mock/**/*.{js,gif,svg,png,jpg,eot,otf,woff,woff2,html}\" ./dist -w",
+    "tsc": "tsc",
+    "w:tsc": "tsc -w",
+    "ts": "yarn webpack",
+    "w:ts": "yarn webpack --watch"
+  }
+}

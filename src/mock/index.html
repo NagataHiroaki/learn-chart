@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .condition-list{
+      position: fixed;
+      left: 40px;
+      bottom: 40px;
+      list-style: disc inside;
+    }
+
+    .condition-list button{
+      font-size: 18px;
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      cursor: pointer
+    }
+    .condition-list button:hover {
+      color: #0ff;
+    }
+    .condition-list button.current {
+      color: #00f;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+</div>
+<ul class="condition-list" id="js-condition-list">
+  <li><button>条件1</button></li>
+  <li><button>条件2</button></li>
+  <li><button>条件3</button></li>
+  <li><button>条件4</button></li>
+</ul>
+<script src="./common/dist.js"></script>
+</body>
+</html>
