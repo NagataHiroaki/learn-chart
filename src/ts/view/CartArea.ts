@@ -92,7 +92,7 @@ export class ChartArea extends Canvas {
     this.data.forEach((item: any, index) => {
       const circle = new Circle(
         this,
-        x * index,
+        x / 2 + x * index,
         this.height - item.data * y - this.radius,
         this.radius,
         '#000',
