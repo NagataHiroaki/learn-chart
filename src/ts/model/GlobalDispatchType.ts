@@ -1,6 +1,6 @@
 /**
  * すべてのdispatherEventを管理する
  */
-export const ConditionListEvent = {
-  onClick: 'ConditionListEvent_onCLick',
-};
+export enum ConditionListEvent {
+  onClick,
+}

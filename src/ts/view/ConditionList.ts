@@ -1,5 +1,5 @@
-import { ConditionListEvent } from '../model/GlobalDispatchType';
 import GlobalDispather from '../control/GlobalDispather';
+import { ConditionListEvent } from '../model/GlobalDispatchType';
 
 /**
  * ソート条件のリスト
@@ -35,10 +35,12 @@ export class ConditionList {
    * @param e
    */
   changeCurrent(e: Event) {
+    // カレントクラスを外す
     this.item.forEach(item => {
       (item as HTMLElement).classList.remove(this.cls);
     });
 
+    // カレントクラスを付与する
     (e.currentTarget as HTMLElement).classList.add(this.cls);
   }
 
