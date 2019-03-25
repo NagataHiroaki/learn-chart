@@ -1,5 +1,5 @@
 /**
- * すべてのdispatherEventを管理する
+ * すべてのdispatcherEventを管理する
  */
 export enum ConditionListEvent {
   onClick,

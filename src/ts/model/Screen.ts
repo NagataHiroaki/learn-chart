@@ -7,7 +7,7 @@
 class Screen {
   width: number;
   height: number;
-  resizeObjs: Array < any > ;
+  resizeObjs: Array<any>;
   constructor() {
     this.width;
     this.height;

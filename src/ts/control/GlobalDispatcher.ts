@@ -1,7 +1,7 @@
 /**
- * すべてのdispatherを管理する
+ * すべてのdispatcherを管理する
  */
-class GlobalDispather {
+class GlobalDispatcher {
   dispatchItems: any;
   constructor() {
     this.dispatchItems = [];
@@ -13,11 +13,11 @@ class GlobalDispather {
 
   dispatch(e: any) {
     for (let i = 0; i < this.dispatchItems.length; i++) {
-      this.dispatchItems[i].dispath(e);
+      this.dispatchItems[i].dispatch(e);
     }
   }
 
   load() {}
 }
 
-export default new GlobalDispather();
+export default new GlobalDispatcher();

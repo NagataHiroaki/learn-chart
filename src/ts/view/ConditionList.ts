@@ -1,4 +1,4 @@
-import GlobalDispather from '../control/GlobalDispather';
+import GlobalDispatcher from '../control/GlobalDispatcher';
 import { ConditionListEvent } from '../model/GlobalDispatchType';
 
 /**
@@ -17,7 +17,7 @@ export class ConditionList {
   }
 
   init() {
-    GlobalDispather.add(this);
+    GlobalDispatcher.add(this);
 
     this.item.forEach(item => {
       item.addEventListener('click', e => {
@@ -25,7 +25,7 @@ export class ConditionList {
           type: ConditionListEvent.onClick,
           args: e,
         };
-        GlobalDispather.dispatch(e2);
+        GlobalDispatcher.dispatch(e2);
       });
     });
   }
@@ -48,7 +48,7 @@ export class ConditionList {
    * イベント伝播
    * @param e
    */
-  dispath(e: any) {
+  dispatch(e: { type: any; args: any }) {
     switch (e.type) {
       case ConditionListEvent.onClick:
         this.changeCurrent(e.args);
