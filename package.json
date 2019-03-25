@@ -22,7 +22,7 @@
     "w:copy": "cpx \"./src/mock/**/*.{js,gif,svg,png,jpg,eot,otf,woff,woff2,html,csv,json}\" ./dist -w",
     "tsc": "tsc",
     "w:tsc": "tsc -w",
-    "ts": "yarn webpack",
-    "w:ts": "yarn webpack --watch"
+    "ts": "yarn webpack --mode development",
+    "w:ts": "yarn webpack --mode development --watch"
   }
 }
