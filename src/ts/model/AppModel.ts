@@ -2,19 +2,31 @@
 var rowData;
 
 class AppModel {
-  _rowData: Array<Array<object>>;
+  _rowData: Array<Array<object>>; //CSVから取得したデータ
+  _viewData: number; // 描画中のデータ
   constructor() {
-    this._rowData; //CSVから取得したデータ
+    this._rowData;
+    this._viewData;
   }
 
   // 使ってみたかったgetter
-  get data(): any {
+  get rowData(): Array<Array<object>> {
     return this._rowData;
   }
 
   // 使ってみたかったsetter
-  set data(args: any) {
+  set rowData(args: Array<Array<object>>) {
     this._rowData = args;
+  }
+
+  // 使ってみたかったgetter
+  get viewData(): number {
+    return this._viewData;
+  }
+
+  // 使ってみたかったsetter
+  set viewData(args: number) {
+    this._viewData = args;
   }
 }
 

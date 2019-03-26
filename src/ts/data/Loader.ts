@@ -8,6 +8,12 @@ import AppModel from '../model/AppModel';
 export class Loader {
   constructor() {}
 
+  /**
+   * データの取得
+   * @param file
+   * @param onSuccess
+   * @param onError
+   */
   load(file: string, onSuccess: Function, onError: Function) {
     const req = new XMLHttpRequest();
     req.open('get', file, true);
@@ -23,6 +29,11 @@ export class Loader {
     };
   }
 
+  /**
+   * CSVを配列に変換
+   * @param data
+   * @param callback
+   */
   toArraryFromCsv(data: any, callback: Function) {
     let result = [];
     let tmp = data.split('\n');

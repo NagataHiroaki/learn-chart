@@ -6,6 +6,7 @@ import { Circle, Line } from './core/Shape';
 import { Text } from './core/Text';
 import { ChartTable } from './ChartTable';
 import { ConditionListEvent } from './ConditionList';
+import { SelectInterval, SelectIntervalEvent } from './SelectInterval';
 
 export const ChartAreaEvent = {
   fetchData: 'ChartAreaEventFetchData',
@@ -20,7 +21,7 @@ export class ChartArea extends Canvas {
   radius: number;
   maxY: number;
   row: number;
-  denominator: number;
+  _denominator: number;
   gap: number;
   length: number;
   ChartTable: ChartTable;
@@ -34,7 +35,7 @@ export class ChartArea extends Canvas {
     this.maxY = 0;
     this.row = 5;
     this.radius = 3;
-    this.denominator = 5;
+    this._denominator = 5;
     this.gap = 100;
     this.length = 0;
     this.ChartTable;
@@ -70,7 +71,7 @@ export class ChartArea extends Canvas {
   fetchData(type: number) {
     Debugger.log('--- ChartArea fetchData ---');
     Debugger.log(type);
-    const data = AppModel.data;
+    const data = AppModel.rowData;
     this.data = [];
     this.maxY = 0;
 
@@ -82,7 +83,7 @@ export class ChartArea extends Canvas {
 
       if (this.maxY < item[type]) this.maxY = Number(item[type]);
     });
-    // this.row = Math.ceil(this.maxY / this.denominator);
+    // this.row = Math.ceil(this.maxY / this._denominator);
     this.length = this.data.length; // データの数=メモリの数
     this.x = (this.width - this.gap * 2) / this.length; // 1つ当たりの間隔
     this.y = (this.height - this.gap * 2) / this.maxY; // １つ当たりの高さ
@@ -99,6 +100,13 @@ export class ChartArea extends Canvas {
       type: ChartAreaEvent.fetchData,
       args: [this, this.length, this.row, this.x, this.y, this.gap],
     });
+  }
+
+  /**
+   * 間引きの感覚を設定
+   */
+  setDenominator(denominator: number) {
+    this._denominator = denominator;
   }
 
   /**
@@ -127,9 +135,9 @@ export class ChartArea extends Canvas {
     // 横線とテキスト
 
     this.data.forEach((item: any, index) => {
-      // 間引きたいときにthis.denominatorを使用する。
+      // 間引きたいときにthis._denominatorを使用する。
       // コメントアウトすればすべてのプロットが描画される。
-      if (index % this.denominator === 0) {
+      if (index % this._denominator === 0) {
         this.posX = this.x / 2 + this.x * index + this.gap;
 
         const circle = new Circle(
@@ -147,9 +155,12 @@ export class ChartArea extends Canvas {
   dispatch(e: { type: any; args: any }) {
     switch (e.type) {
       case ConditionListEvent.onClick:
-        this.fetchData(e.args.target.value);
+        this.fetchData(e.args);
         this.renderData();
         break;
+      case SelectIntervalEvent.onChange:
+        this.setDenominator(e.args);
+        this.renderData();
       default:
         break;
       // this.renderRules();
