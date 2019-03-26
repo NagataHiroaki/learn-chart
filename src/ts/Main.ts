@@ -2,8 +2,9 @@ import Debugger from './debug/Debugger';
 import { ConditionList } from './view/ConditionList';
 import { Loader } from './data/Loader';
 import AppModel from './model/AppModel';
-import { ChartArea } from './view/CartArea';
+import { ChartArea } from './view/ChartArea';
 import Screen from './model/Screen';
+import { ChartTable } from './view/ChartTable';
 
 class Main {
   constructor() {
@@ -56,10 +57,22 @@ class Main {
 
     const app = document.getElementById('app');
 
-    // canvasのDOM追加
+    // canvasのDOM生成
     let canvasElm = document.createElement('canvas');
     canvasElm.id = 'canvas';
     app.appendChild(canvasElm);
+
+    // canvasのインスタンス生成
+    const chartArea = new ChartArea('canvas');
+    chartArea.init();
+
+    // canvasのDOM生成
+    let canvasElm2 = document.createElement('canvas');
+    canvasElm2.id = 'canvas2';
+    app.appendChild(canvasElm2);
+
+    const chartTable = new ChartTable('canvas2');
+    chartTable.init();
 
     const liData = [
       { value: '1', label: '平均気温' },
@@ -68,6 +81,7 @@ class Main {
       { value: '4', label: '平均風速(m/s)' },
     ];
 
+    // 条件のリストのDOM生成
     let conditionListElm = document.createElement('ul');
     conditionListElm.id = 'js-condition-list';
     conditionListElm.className = 'condition-list';
@@ -82,11 +96,9 @@ class Main {
     }
     app.appendChild(conditionListElm);
 
-    const chartArea = new ChartArea('canvas');
-    chartArea.init();
-
     const conditionListId = document.getElementById('js-condition-list'); // ソート条件のリスト
 
+    // 条件のリストのインスタンス生成
     const conditionList = new ConditionList({
       list: conditionListId,
       item: 'button',

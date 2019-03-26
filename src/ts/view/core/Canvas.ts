@@ -21,7 +21,7 @@ export class Canvas {
   }
 
   init() {
-    Screen.addResizeObj(this);
+    // Screen.addResizeObj(this);
     this.onResize();
   }
 
@@ -31,8 +31,10 @@ export class Canvas {
   }
 
   setArea() {
-    this.width = document.body.clientWidth;
-    this.height = Math.floor(window.innerHeight - 0.5) - 400;
+    this.width = 1000;
+    this.height = 400;
+    // this.width = document.body.clientWidth;
+    // this.height = Math.floor(window.innerHeight - 0.5) - 400;
     this.canvas.width = this.width;
     this.canvas.height = this.height;
   }
