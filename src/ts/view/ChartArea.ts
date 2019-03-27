@@ -1,12 +1,11 @@
-import Debugger from '../debug/Debugger';
 import GlobalDispatcher from '../control/GlobalDispatcher';
+import Debugger from '../debug/Debugger';
 import AppModel from '../model/AppModel';
-import { Canvas } from './core/Canvas';
-import { Circle, Line } from './core/Shape';
-import { Text } from './core/Text';
 import { ChartTable } from './ChartTable';
 import { ConditionListEvent } from './ConditionList';
-import { SelectInterval, SelectIntervalEvent } from './SelectInterval';
+import { Canvas } from './core/Canvas';
+import { Circle, Line } from './core/Shape';
+import { SelectIntervalEvent } from './SelectInterval';
 
 export const ChartAreaEvent = {
   fetchData: 'ChartAreaEventFetchData',
@@ -83,19 +82,11 @@ export class ChartArea extends Canvas {
 
       if (this.maxY < item[type]) this.maxY = Number(item[type]);
     });
-    // this.row = Math.ceil(this.maxY / this._denominator);
+
     this.length = this.data.length; // データの数=メモリの数
     this.x = (this.width - this.gap * 2) / this.length; // 1つ当たりの間隔
     this.y = (this.height - this.gap * 2) / this.maxY; // １つ当たりの高さ
 
-    // this.ChartTable.setState(
-    //   this,
-    //   this.length,
-    //   this.row,
-    //   this.x,
-    //   this.y,
-    //   this.gap,
-    // );
     GlobalDispatcher.dispatch({
       type: ChartAreaEvent.fetchData,
       args: [this, this.length, this.row, this.x, this.y, this.gap],
@@ -163,7 +154,6 @@ export class ChartArea extends Canvas {
         this.renderData();
       default:
         break;
-      // this.renderRules();
     }
   }
 }

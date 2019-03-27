@@ -44,7 +44,6 @@ export class SelectInterval {
         break;
       default:
         break;
-      // this.renderRules();
     }
   }
 }

@@ -50,15 +50,4 @@ export class ConditionList {
     };
     GlobalDispatcher.dispatch(e2);
   }
-
-  // /**
-  //  * イベント伝播
-  //  * @param e
-  //  */
-  // dispatch(e: { type: any; args: any }) {
-  //   switch (e.type) {
-  //     case ConditionListEvent.onClick:
-  //       this.changeCurrent(e.args);
-  //   }
-  // }
 }

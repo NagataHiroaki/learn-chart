@@ -26,16 +26,19 @@ class Main {
     //CSVを取得
     const loader = new Loader();
 
-    /**
-     * 引数は以下の通り
-     * (url,onSuccess,onError)
-     */
     loader.load(
-      '/data/weather.csv',
-      (data: any) => {
-        loader.toArraryFromCsv(data, (data: Array<Array<object>>) =>
-          this.onCompleted(data),
-        );
+      './data/weather.csv',
+      (data: string) => {
+        // 配列に変換
+        let _data = loader.toArraryFromCsv(data);
+
+        // 最初の行は「年月日,平均気温,最高気温,最低気温,平均風速(m/s)」
+        // で、データとして不要なので削除する
+        _data = _data.filter(function(element, index, array) {
+          return index !== 0;
+        });
+
+        this.onCompleted(_data);
       },
       () => {
         Debugger.log('エラーです');
@@ -147,7 +150,7 @@ class Main {
     const intervalList = new SelectInterval(intervalListID);
     intervalList.init();
 
-    // Screenを監視
+    // ウィンドウを監視
     Screen.init();
   }
 }

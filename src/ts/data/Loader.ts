@@ -1,5 +1,3 @@
-import AppModel from '../model/AppModel';
-
 /**
  * CSVと通信するクラス
  * https://uxmilk.jp/11586
@@ -10,9 +8,9 @@ export class Loader {
 
   /**
    * データの取得
-   * @param file
-   * @param onSuccess
-   * @param onError
+   * @param file ファイルパス
+   * @param onSuccess 成功時に実行する関数
+   * @param onError エラー時に実行する関数
    */
   load(file: string, onSuccess: Function, onError: Function) {
     const req = new XMLHttpRequest();
@@ -31,10 +29,9 @@ export class Loader {
 
   /**
    * CSVを配列に変換
-   * @param data
-   * @param callback
+   * @param data 配列に変換したいCSVの文字列
    */
-  toArraryFromCsv(data: any, callback: Function) {
+  toArraryFromCsv(data: string) {
     let result = [];
     let tmp = data.split('\n');
 
@@ -42,12 +39,6 @@ export class Loader {
       result[i] = tmp[i].split(',');
     }
 
-    // 最初の行は「年月日,平均気温,最高気温,最低気温,平均風速(m/s)」
-    // で、データとして不要なので削除する
-    result = result.filter(function(element, index, array) {
-      return index !== 0;
-    });
-
-    callback(result);
+    return result;
   }
 }

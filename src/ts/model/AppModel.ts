@@ -1,6 +1,3 @@
-// 生のデータ
-var rowData;
-
 class AppModel {
   _rowData: Array<Array<object>>; //CSVから取得したデータ
   _viewData: number; // 描画中のデータ
