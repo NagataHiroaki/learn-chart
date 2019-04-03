@@ -1,4 +1,5 @@
 import { Canvas } from './Canvas';
+import Debugger from '../../debug/Debugger';
 
 /**
  * 文字を扱うクラス

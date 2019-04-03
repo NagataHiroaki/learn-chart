@@ -1,7 +1,11 @@
+import { ChartAreaEvent } from '../view/ChartArea';
+import { SelectIntervalEvent } from '../view/SelectInterval';
+import { ConditionListEvent } from '../view/ConditionList';
+
 /**
  * すべてのdispatcherを管理する
  */
-class GlobalDispatcher {
+class _GlobalDispatcher {
   dispatchItems: any;
   constructor() {
     this.dispatchItems = [];
@@ -20,4 +24,20 @@ class GlobalDispatcher {
   load() {}
 }
 
-export default new GlobalDispatcher();
+export const GlobalDispatcher = new _GlobalDispatcher();
+
+/**
+ * GlobalDispatcherで利用する型リスト
+ */
+type GlobalDispatchType =
+  | ChartAreaEvent
+  | SelectIntervalEvent
+  | ConditionListEvent;
+
+/**
+ * CLASS.dispatchで使用する引数の型
+ */
+export interface GlobalDispatchAction {
+  type: GlobalDispatchType;
+  args: any; // 引数なので何がきても良い
+}

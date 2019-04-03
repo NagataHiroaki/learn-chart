@@ -23,7 +23,7 @@ export class Circle {
   }
 
   render() {
-    // console.log('--- Circle render ---');
+    console.log('--- Circle render ---');
     this.canvas.ctx.beginPath();
     this.canvas.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
     if (this.c) {

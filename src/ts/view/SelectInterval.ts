@@ -1,11 +1,14 @@
 import Debugger from '../debug/Debugger';
-import GlobalDispatcher from '../control/GlobalDispatcher';
+import {
+  GlobalDispatcher,
+  GlobalDispatchAction,
+} from '../control/GlobalDispatcher';
 import AppModel from '../model/AppModel';
 import { ConditionListEvent } from './ConditionList';
 
-export const SelectIntervalEvent = {
-  onChange: 'SelectIntervalEventOnChange',
-};
+export enum SelectIntervalEvent {
+  onChange = 'SELECTINTERVALEVENT_ONCHANGE',
+}
 
 export class SelectInterval {
   target: HTMLElement;
@@ -37,7 +40,7 @@ export class SelectInterval {
       AppModel.viewData === undefined ? 'none' : 'block';
   }
 
-  dispatch(e: { type: any; args: any }) {
+  dispatch(e: GlobalDispatchAction) {
     switch (e.type) {
       case ConditionListEvent.onClick:
         this.setState();

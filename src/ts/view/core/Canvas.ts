@@ -1,4 +1,5 @@
 import Screen from '../../model/Screen';
+import Debugger from '../../debug/Debugger';
 
 /**
  * Canvasを扱うクラス
@@ -46,15 +47,16 @@ export class Canvas {
   }
 
   clear() {
+    Debugger.log(this.canvas);
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   update() {
+    this.clear();
     this.render();
   }
 
   render() {
-    this.clear();
     for (let i = 0; i < this.renderObjs.length; i++) {
       this.renderObjs[i].render();
     }

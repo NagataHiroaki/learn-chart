@@ -1,13 +1,13 @@
-import GlobalDispatcher from '../control/GlobalDispatcher';
+import { GlobalDispatcher } from '../control/GlobalDispatcher';
 import AppModel from '../model/AppModel';
 
 /**
  * ソート条件のリスト
  */
 
-export const ConditionListEvent = {
-  onClick: 'ConditionListEventOnClick',
-};
+export enum ConditionListEvent {
+  onClick = 'CONDITIONLISTEVENT_ONCLICK',
+}
 
 export class ConditionList {
   list: HTMLElement;

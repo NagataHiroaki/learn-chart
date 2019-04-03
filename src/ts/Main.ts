@@ -1,10 +1,10 @@
-import Debugger from './debug/Debugger';
-import { ConditionList } from './view/ConditionList';
 import { Loader } from './data/Loader';
+import Debugger from './debug/Debugger';
 import AppModel from './model/AppModel';
-import { ChartArea } from './view/ChartArea';
 import Screen from './model/Screen';
+import { ChartArea } from './view/ChartArea';
 import { ChartTable } from './view/ChartTable';
+import { ConditionList } from './view/ConditionList';
 import { SelectInterval } from './view/SelectInterval';
 
 class Main {

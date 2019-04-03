@@ -1,4 +1,7 @@
-import GlobalDispatcher from '../control/GlobalDispatcher';
+import {
+  GlobalDispatcher,
+  GlobalDispatchAction,
+} from '../control/GlobalDispatcher';
 import Debugger from '../debug/Debugger';
 import AppModel from '../model/AppModel';
 import { ChartTable } from './ChartTable';
@@ -6,11 +9,12 @@ import { ConditionListEvent } from './ConditionList';
 import { Canvas } from './core/Canvas';
 import { Circle, Line } from './core/Shape';
 import { SelectIntervalEvent } from './SelectInterval';
+import Timeline from '../model/Timeline';
 
-export const ChartAreaEvent = {
-  fetchData: 'ChartAreaEventFetchData',
-  renderData: 'ChartAreaEventRenderData',
-};
+export enum ChartAreaEvent {
+  fetchData = 'CHARTAREAEVENT_FETCHDATA',
+  renderData = 'CHARTAREAEVENT_RENDERDATA',
+}
 
 /**
  * チャート表示エリアのクラス
@@ -28,6 +32,10 @@ export class ChartArea extends Canvas {
   y: number;
   posX: number;
   posY: number;
+  moveY: number;
+  moveSpeed: number;
+  protCircle: Array<Circle>;
+
   constructor(id: string) {
     super(id);
     this.data = [];
@@ -39,10 +47,15 @@ export class ChartArea extends Canvas {
     this.length = 0;
     this.ChartTable;
 
+    this.moveY = 30;
+    this.moveSpeed = 2;
+
     this.x;
     this.y;
     this.posX;
     this.posY;
+
+    this.protCircle = [];
   }
 
   init() {
@@ -104,26 +117,12 @@ export class ChartArea extends Canvas {
    * プロットを描画する
    * @param e
    */
-  renderData() {
-    //描画をクリア
-    this.update();
+  render() {
     GlobalDispatcher.dispatch({
       type: ChartAreaEvent.renderData,
     });
 
-    //描画設定開始
-    // Debugger.log('--- canvasの横幅: ' + this.width + ' ---');
-    // Debugger.log('--- canvasの縦幅: ' + this.height + ' ---');
-
-    // もしデータの日付が歯抜けであれば、以下の処理で日数を求める
-    // const startDay = new Date(this.data[0].date);
-    // const endDay = new Date(this.data[length - 1].date);
-    // const msDiff = endDay.getTime() - startDay.getTime();
-    // const day = Math.floor(msDiff / (1000 * 60 * 60 * 24)) + 1;
-
-    // Debugger.log('--- プロットの感覚: ' + x + ' ---');
-
-    // 横線とテキスト
+    this.protCircle = [];
 
     this.data.forEach((item: any, index) => {
       // 間引きたいときにthis._denominatorを使用する。
@@ -138,20 +137,38 @@ export class ChartArea extends Canvas {
           this.radius,
           '#000',
         );
+        // circle.render();
+        this.protCircle.push(circle);
+      }
+    });
+    this.moveY = 30;
+
+    let moveToY = () => {
+      Debugger.log(this.moveY);
+      this.moveY = this.moveY - this.moveSpeed;
+      this.clear();
+      for (const circle of this.protCircle) {
+        circle.y = circle.y - this.moveSpeed;
         circle.render();
       }
+
+      if (this.moveY <= 0) Timeline.stop();
+    };
+
+    Timeline.play(() => {
+      moveToY();
     });
   }
 
-  dispatch(e: { type: any; args: any }) {
+  dispatch(e: GlobalDispatchAction) {
     switch (e.type) {
       case ConditionListEvent.onClick:
         this.fetchData(e.args);
-        this.renderData();
+        this.update();
         break;
       case SelectIntervalEvent.onChange:
         this.setDenominator(e.args);
-        this.renderData();
+        this.update();
       default:
         break;
     }
